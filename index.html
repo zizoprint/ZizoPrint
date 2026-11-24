@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZizoPrint</title>
+<style>
+body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#fffdf9;color:#18212b}
+header{position:sticky;top:0;background:#fff;padding:14px 5%;border-bottom:1px solid #ddd;z-index:2}
+header a{margin:0 8px;text-decoration:none;color:#18212b;font-weight:700}
+main{max-width:1200px;margin:auto;padding:30px 5%}.hero{text-align:center;padding:60px 10%;background:#f4eee5}
+h1{font-size:48px}.hero strong{color:#4c9ca5}.btn{border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:#18212b;color:#fff;cursor:pointer}
+section{margin:50px 0}.products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border:1px solid #e5dfd6;border-radius:15px;overflow:hidden;background:#fff}.product-price{font-size:1.12rem;font-weight:800;color:#287b58;margin:8px 0 12px}.detail-price{font-size:1.5rem;font-weight:800;color:#287b58;margin:12px 0}.cart-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:8px 0}.summary-total{font-weight:800;font-size:1.1rem;margin-top:12px}.card img{width:100%;height:210px;object-fit:cover}.body{padding:14px}
+.detail{display:none}.detail.show{display:block}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.mainimg{width:100%;aspect-ratio:1;object-fit:cover}.thumbs{display:flex;gap:8px;margin-top:8px}.thumbs img{width:30%;cursor:pointer}
+.form{display:grid;gap:12px;max-width:800px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:15px}
+input,select,textarea{padding:11px;border:1px solid #ddd;border-radius:8px}textarea{min-height:90px}
+.summary{padding:15px;background:#f4eee5;border-radius:10px;max-width:800px;margin:0 auto 15px}
+@media(max-width:800px){.products{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:1fr}}
+@media(max-width:500px){.products{grid-template-columns:1fr}h1{font-size:36px}}
+
+.payment-policy{max-width:1000px;margin:28px auto;padding:22px;border:1px solid #e5ddd2;border-radius:16px;background:#fbf7f1;color:#302820}
+.payment-policy h2{margin-top:0}.policy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.policy-grid>div{background:#fff;padding:14px;border:1px solid #eee4d8;border-radius:12px}
+.policy-grid h3{margin:0 0 8px;font-size:1rem}.policy-grid p{margin:0;line-height:1.8}
+</style>
+</head>
+<body>
+<header>
+<b style="font-size:25px">ZizoPrint</b>
+<a href="#home">الرئيسية</a><a href="#notebooks">النوت بوك</a><a href="#mandala">الماندالا</a><a href="#kids">كتب الأطفال</a><a href="#order">الطلب</a><a href="#track">المتابعة</a>
+</header>
+<main>
+<section id="home" class="hero"><h1>اختار اللي شبهك<br><strong>وخليه مخصوص ليك</strong></h1><p>نوت بوك، ماندالا وكتب تلوين أطفال بتصميمات متنوعة وتخصيص بالاسم والصورة.</p><a class="btn" href="#notebooks">اكتشف المنتجات</a></section>
+
+<section id="Notebooks"><h2>📒 Notebooks ( ورق يجمع أفكارك 📝 )
+  </h2><div></div> <h2> ⏎ ٣٠ to do lis + ٦٠ سطور نوتة / ورق ١٠٠ جرام داخلي / غلاف ٦٠٠ جرام / سلك جانبي/ مقاس A4</div></section>
+</h2><div id="nb" class="products"></div></section>
+<section id="Mandala"><h2>🌸 Mandalas: ( فكّ الضغط ... وسيب الألوان تاخدك لعالم تاني 😌 )
+    </h2><div></div> <h2> ⏎ ٣٠ ورقة داخلي / ١٠٠ جرام / غلاف ٣٥٠ جرام / سلك من الأعلي/ مقاس A4</div></section>
+
+</h2><div id="md" class="products"></div></section>
+<section id="Kids Zone"><h2>🖍️ Kids Zone : ( لوّن، افرح، واتعلّم! 👩🏻‍🎨🧑🏻‍🎨 ) 
+    </h2><div></div> <h2> ⏎  ٣٠ ورقة داخلي / ١٠٠ جرام / غلاف ٣٥٠ جرام / سلك من الأعلي / ممكن تبعتلنا صوره لطفلك تتلون تكون في بداية الكتيب/ مقاس A4</div></section>
+
+</h2><div id="kd" class="products"></div></section>
+
+
+<section id="detail" class="detail"><div id="detailContent"></div></section>
+
+<section id="custom"><h2>تخصيص المنتج</h2>
+<form id="customForm" class="form">
+<label>النوع<select id="ct"><option>نوت بوك</option><option>ماندالا</option><option>كتاب تلوين للأطفال</option></select></label>
+<label>الاسم على الغلاف<input id="cn"></label>
+<label>ملاحظات<textarea id="cnotes"></textarea></label>
+<label>صورة الطفل<input id="cphoto" type="file" accept="image/*"></label>
+<button class="btn">حفظ التخصيص</button>
+</form></section>
+
+
+<section id="payment-delivery" class="payment-policy">
+<h2>الدفع والتوصيل</h2>
+<div class="policy-grid">
+<div><h3>الدفع المقدم</h3><p>يتم دفع 50% من إجمالي الطلب قبل بدء التنفيذ، والباقي عند الاستلام.</p></div>
+<div><h3>InstaPay</h3><p dir="ltr">01010943823</p></div>
+<div><h3>المحفظة الإلكترونية</h3><p dir="ltr">01122481521</p></div>
+<div><h3>التوصيل</h3><p>استلام مجاني من محطة مترو حلمية الزيتون، أو 60 جنيهًا للتوصيل داخل القاهرة.</p></div>
+<div><h3>موعد التسليم</h3><p>آخر موعد لطلبات دفعة الخميس هو الثلاثاء. الطلبات بعد الثلاثاء تدخل في دفعة الخميس التالية.</p></div>
+<div><h3>إيصال التحويل</h3><p>بعد تحويل المقدم، أرسل صورة الإيصال على واتساب المتجر.</p><a href="https://wa.me/201122481521?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%B3%D9%84%20%D8%A5%D9%8A%D8%B5%D8%A7%D9%84%20%D8%AA%D8%AD%D9%88%D9%8A%D9%84%20%D8%A7%D9%84%D9%85%D9%82%D8%AF%D9%85%20%D9%84%D8%B7%D9%84%D8%A8%D9%8A" target="_blank" rel="noopener">إرسال إيصال التحويل على واتساب</a></div>
+</div>
+</section>
+<section id="order"><h2>🛒 إتمام الطلب</h2>
+<div id="summary" class="summary">السلة فارغة.</div>
+<form id="orderForm" class="form">
+<input id="name" placeholder="الاسم بالكامل" required>
+<input id="phone" placeholder="رقم الهاتف" required>
+<input id="area" placeholder="المحافظة / المنطقة" required>
+<textarea id="address" placeholder="العنوان بالتفصيل" required></textarea>
+<select id="pay" required><option value="">طريقة الدفع</option><option>الدفع عند الاستلام</option><option>دفع إلكتروني / تحويل</option></select>
+<textarea id="notes" placeholder="ملاحظات الطلب"></textarea>
+
+<label for="deliveryMethod">طريقة الاستلام / التوصيل</label>
+<select id="deliveryMethod" name="deliveryMethod">
+<option value="">اختار طريقة الاستلام</option>
+<option value="metro">استلام مجاني من محطة مترو حلمية الزيتون</option>
+<option value="cairo">توصيل داخل القاهرة — 60 جنيهًا</option>
+</select>
+<div id="deliveryNote" class="payment-policy">المقدم المطلوب 50% من إجمالي الطلب. بعد التحويل أرسل صورة الإيصال على واتساب.</div>
+<button class="btn">تأكيد وتجهيز الطلب</button>
+</form>
+<div id="result" class="form" style="display:none"><h3>تم إنشاء الطلب ✅</h3><p id="orderNo"></p><a id="wa" class="btn" target="_blank">إرسال الطلب على واتساب</a></div>
+</section>
+
+<section id="track"><h2>📦 متابعة الطلب</h2>
+<form class="form" onsubmit="track();return false"><input id="trackNo" placeholder="رقم الطلب ZP-123456"><button class="btn">متابعة</button><div id="trackOut"></div></form>
+</section>
+</main>
+<footer style="text-align:center;padding:30px;border-top:1px solid #ddd">© ZizoPrint</footer>
+
+<script>
+const NB=["Cars","Dance","Cute Duck","EGYPT","Enjoy","Flowers","Good Times","Legend","Magical","Pixel Smile","Surprise Smile","Smile With Laughs","Innocent Smile","Knowing Smile","Coming Soon","Coming Soon","Coming Soon","Coming Soon","Coming Soon","Coming Soon"];
+const MD=["Mandela Mosaic","Classic Mandela 1","Classic Mandela 2 ","Classic Mandela 3","Mandela Easy (A)","Mandela Easy (B)","Mandela Medium (A)","Mandela Medium (B)","Mandela Hard (A)","Mandela Hard (B)","Mandela Animals (1)","Mandela Animals (2)","Minis Coloring (1)","Minis Coloring (2)","Zodiac Sign Mandalas","One Piece Coloring","Naruto Coloring","Coming Soon","Coming Soon","Coming Soon"];
+const KD=["»Color&Learn Alphabet (A,B,C) ","لون و تعلم حروف اللغة العربية","Color&Learn Number(1...30)","Color By Numbers","Baby Shark","Trolls ","Tangled","SpongeBob 1","SpongeBob 2","LOL Surprise Dolls","Spider Man","Batman","Minions 1","Minions 2","Moana","Frozen","Barbie","Winnie The Pooh","Tinker Bell","Lilo & Stitch"];
+// الأسعار قابلة للتعديل: غيّر رقم أي منتج هنا بشكل مستقل (بالجنيه).
+const PRICES = {
+  notebooks: [120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 0, 0, 0, 0, 0, 0],
+  mandala: [80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 0, 0, 0],
+  kids: [90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185]
+};
+const cart=JSON.parse(localStorage.getItem("zizoCart")||"[]");
+cart.forEach(item => {
+  if (item && item.cat && item.id && PRICES[item.cat]) item.price = PRICES[item.cat][item.id-1];
+});
+cart.forEach(item=>{if(item&&item.cat&&item.id&&PRICES[item.cat])item.price=productPrice(item.cat,item.id);});
+const WHATSAPP_NUMBER="201122481521"; // غيّر هذا الرقم إلى رقم واتساب المتجر
+const ORDER_ENDPOINT=""; // ضع هنا رابط خدمة قاعدة البيانات لاحقاً
+
+function path(cat,id,n){
+ let p=cat==="notebooks"?"notebook":cat==="mandala"?"mandala":"kid";
+ return `images/${cat}/${p}-${String(id).padStart(2,"0")}-${n}.jpg`;
+}
+function money(value){return Number(value||0).toLocaleString("ar-EG")+" جنيه";}
+function productPrice(cat,id){return Number(PRICES[cat]?.[id-1] ?? 0);}
+function deliveryCost(){
+  const method=document.getElementById("deliveryMethod")?.value;
+  return method==="cairo"?60:0;
+}
+function save(){localStorage.setItem("zizoCart",JSON.stringify(cart));renderSummary();}
+function categoryLabel(cat){
+ return cat==="notebooks"?"النوت بوك":cat==="mandala"?"المانديلا":"كتب تلوين الأطفال";
+}
+function add(cat,id){
+ const arr=cat==="notebooks"?NB:cat==="mandala"?MD:KD;
+ const productName=arr[id-1], price=productPrice(cat,id);
+ const x=cart.find(q=>q.cat===cat&&q.id===id);
+ if(x){x.qty++;x.price=price;}
+ else cart.push({cat,id,name:productName,category:categoryLabel(cat),productKey:`${cat}-${id}`,price,qty:1});
+ save();location.hash="order";
+}
+function grid(el,cat,arr){
+ document.getElementById(el).innerHTML=arr.map((name,i)=>`
+ <article class="card" data-category="${cat}" data-product-id="${i+1}" data-product-name="${name}">
+ <img src="${path(cat,i+1,1)}" alt="${name}">
+ <div class="body">
+ <small>${categoryLabel(cat)}</small><h3>${name}</h3>
+ <p class="product-price">${money(productPrice(cat,i+1))}</p>
+ <button class="btn" onclick="detail('${cat}',${i+1})">التفاصيل</button>
+ </div></article>`).join("");
+}
+function detail(cat,id){
+ const arr=cat==="notebooks"?NB:cat==="mandala"?MD:KD,name=arr[id-1];
+ document.getElementById("detailContent").innerHTML=`
+ <div class="detail-grid"><div><img id="big" class="mainimg" src="${path(cat,id,1)}">
+ <div class="thumbs">${[1,2,3].map(n=>`<img src="${path(cat,id,n)}" onclick="document.getElementById('big').src=this.src">`).join("")}</div></div>
+ <div><h1>${name}</h1><p class="detail-price">${money(productPrice(cat,id))}</p>
+ <p>🥰 منتج مميز مناسب يكون هدية ويتكتب عليه اسم صاحب الهدية 🎁</p>
+ <button class="btn" onclick="add('${cat}',${id})">أضف للسلة</button></div></div>`;
+ document.getElementById("detail").classList.add("show");location.hash="detail";
+}
+function removeItem(i){cart.splice(i,1);save();}
+function renderSummary(){
+ const s=document.getElementById("summary");
+ if(!cart.length){s.textContent="السلة فارغة.";return;}
+ const subtotal=cart.reduce((sum,item)=>sum+(Number(item.price)||0)*(Number(item.qty)||0),0);
+ const shipping=deliveryCost(),total=subtotal+shipping,deposit=total*0.5;
+ s.innerHTML=cart.map((x,i)=>`<div class="cart-line">
+ <span><strong>${x.category||""}</strong> — ${x.name} × ${x.qty}</span>
+ <span>${money((Number(x.price)||0)*x.qty)} <small>(${money(x.price)} للقطعة)</small>
+ <button type="button" onclick="removeItem(${i})">حذف</button></span></div>`).join("<hr>")+
+ `<div>إجمالي المنتجات: ${money(subtotal)}</div><div>التوصيل: ${money(shipping)}</div>
+ <div class="summary-total">الإجمالي: ${money(total)}</div><div>المقدم المطلوب 50%: ${money(deposit)}</div>`;
+}
+async function sendBackend(order){
+ if(!ORDER_ENDPOINT)return;
+ try{await fetch(ORDER_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)})}catch(e){console.log(e)}
+}
+document.getElementById("customForm").onsubmit=e=>{
+ e.preventDefault();localStorage.setItem("zizoCustom",JSON.stringify({type:ct.value,name:cn.value,notes:cnotes.value}));alert("تم حفظ التخصيص");
+};
+document.getElementById("orderForm").onsubmit=async e=>{
+ e.preventDefault();
+ if(!cart.length){alert("أضف منتجاً أولاً");return;}
+ const no="ZP-"+Math.floor(100000+Math.random()*900000);
+ const subtotal=cart.reduce((sum,item)=>sum+(Number(item.price)||0)*(Number(item.qty)||0),0);
+ const shipping=deliveryCost(),total=subtotal+shipping,deposit=total*0.5;
+ const order={
+  number:no,items:[...cart],subtotal,shipping,total,deposit,
+  deliveryMethod:document.getElementById("deliveryMethod").value,
+  name:document.getElementById("name").value,
+  phone:document.getElementById("phone").value,
+  area:document.getElementById("area").value,
+  address:document.getElementById("address").value,
+  payment:document.getElementById("pay").value,
+  notes:document.getElementById("notes").value,status:0,
+  date:new Date().toLocaleString("ar-EG")
+ };
+ localStorage.setItem("zizoLastOrder",JSON.stringify(order));await sendBackend(order);
+ const lines=order.items.map(x=>`${x.category||""} — ${x.name} × ${x.qty}: ${money(x.price)} للقطعة = ${money(x.price*x.qty)}`).join("\n");
+ const text=`طلب ZizoPrint ${no}\nالاسم: ${order.name}\nالهاتف: ${order.phone}\nالعنوان: ${order.address}\nالمنطقة: ${order.area}\nالدفع: ${order.payment}\nالمنتجات:\\n${lines}\nإجمالي المنتجات: ${money(subtotal)}\nالتوصيل: ${money(shipping)}\nالإجمالي: ${money(total)}\nالمقدم 50%: ${money(deposit)}\nملاحظات: ${order.notes||"لا يوجد"}`;
+ document.getElementById("orderNo").textContent="رقم الطلب: "+no;
+ document.getElementById("wa").href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(text);
+ document.getElementById("result").style.display="grid";
+ cart.splice(0);save();e.target.reset();
+};
+function track(){
+ const n=document.getElementById("trackNo").value.trim(),o=JSON.parse(localStorage.getItem("zizoLastOrder")||"null");
+ document.getElementById("trackOut").innerHTML=o&&o.number===n?
+ "<p>حالة الطلب الحالية: تم استلام الطلب.</p><p>يمكن تحديث الحالات لاحقاً من قاعدة البيانات.</p>":
+ "<p>لم نجد الطلب على هذا الجهاز.</p>";
+}
+document.getElementById("deliveryMethod").addEventListener("change",renderSummary);
+grid("nb","notebooks",NB);grid("md","mandala",MD);grid("kd","kids",KD);renderSummary();
+</script>
+</body></html>
